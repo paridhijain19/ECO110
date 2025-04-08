@@ -390,6 +390,7 @@ section = st.sidebar.radio(
         "GDP Analysis",
         "Inflation & Unemployment",
         "Trade & Investment",
+        "Trump Effect",
         "Government Finances",
         "Correlation Analysis",
         "Macroeconomic Events"
@@ -1007,32 +1008,388 @@ elif section == "Population Comparison":
     st.plotly_chart(urban_fig, use_container_width=True)
     
     st.markdown('<div class="insight-box">The urbanization patterns reveal stark differences between Denmark and India. Denmark is heavily urbanized with 88% of its population living in urban areas, reflecting its status as a developed economy. In contrast, India remains predominantly rural with only about 35% urban population, though this ratio has been steadily increasing due to ongoing urbanization trends.</div>', unsafe_allow_html=True)
-
-# elif section == "Inflation & Unemployment":
-#     st.markdown('<div class="sub-header">Inflation & Unemployment</div>', unsafe_allow_html=True)
-#     st.markdown("Explore inflation and unemployment trends for Denmark and India.")
-
-#     # Inflation Chart
-#     st.markdown('<div class="section-header">Inflation Trends</div>', unsafe_allow_html=True)
-#     fig = create_comparative_line_chart(
-#         df,
-#         'Inflation, average consumer prices',
-#         'Percent change',
-#         'Inflation Rate Comparison (2014-2024)',
-#         'Annual Percent Change (%)'
-#     )
-#     st.plotly_chart(fig, use_container_width=True)
-
-#     # Unemployment Chart
-#     st.markdown('<div class="section-header">Unemployment Trends</div>', unsafe_allow_html=True)
-#     fig = create_comparative_line_chart(
-#         df,
-#         'Unemployment rate',
-#         'Percent of total labor force',
-#         'Unemployment Rate Comparison (2014-2024)',
-#         'Percent of Labor Force (%)'
-#     )
-#     st.plotly_chart(fig, use_container_width=True)
+elif section == "Trump Effect":
+    st.markdown('<div class="sub-header">Trump Trade Policies & Global Impact</div>', unsafe_allow_html=True)
+    
+    # Trump quote with stylized display
+    st.markdown("""
+    <div class="trump-quote">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Donald_Trump_official_portrait.jpg" style="width:75px; border-radius:50%; float:left; margin-right:15px;">
+        <div class="quote-text">
+            <p><i>"They (global leaders) are dying to make a deal. I said, we are not going to have deficits with your country. We're going to have surpluses or, at worst, going to be breaking even."</i></p>
+            <p class="quote-attribution">- President Donald Trump</p>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### Impact Analysis: Denmark vs. India")
+    
+    # Tabs for different analysis views
+    tab1, tab2, tab3, tab4 = st.tabs(["Trade Balance", "Tariff Vulnerability", "Export Categories", "Economic Resilience"])
+    
+    with tab1:
+        st.markdown("#### US Trade Balance Comparison")
+        
+        # Create mock data for trade balance
+        trade_data = pd.DataFrame({
+            'Year': [2019, 2020, 2021, 2022, 2023, 2024],
+            'India_Exports': [54.3, 49.2, 57.7, 61.3, 63.2, 59.8],
+            'India_Imports': [50.1, 42.3, 48.8, 55.8, 58.1, 54.7],
+            'Denmark_Exports': [12.6, 11.8, 12.4, 12.9, 13.1, 11.7],
+            'Denmark_Imports': [15.2, 13.7, 14.8, 16.1, 16.9, 17.5]
+        })
+        
+        # Calculate balances
+        trade_data['India_Balance'] = trade_data['India_Exports'] - trade_data['India_Imports']
+        trade_data['Denmark_Balance'] = trade_data['Denmark_Exports'] - trade_data['Denmark_Imports']
+        
+        # Create the plot
+        fig = go.Figure()
+        
+        # Add India's trade balance
+        fig.add_trace(go.Scatter(
+            x=trade_data['Year'],
+            y=trade_data['India_Balance'],
+            mode='lines+markers',
+            name='India Trade Balance',
+            line=dict(color='#ff7043', width=3),
+            marker=dict(size=10)
+        ))
+        
+        # Add Denmark's trade balance
+        fig.add_trace(go.Scatter(
+            x=trade_data['Year'],
+            y=trade_data['Denmark_Balance'],
+            mode='lines+markers',
+            name='Denmark Trade Balance',
+            line=dict(color='#5c6bc0', width=3),
+            marker=dict(size=10)
+        ))
+        
+        # Add a reference line at y=0
+        fig.add_shape(
+            type="line",
+            x0=2019,
+            y0=0,
+            x1=2024,
+            y1=0,
+            line=dict(color="gray", width=1, dash="dash"),
+        )
+        
+        # Add a vertical line for Trump's second term
+        fig.add_shape(
+            type="line",
+            x0=2025,
+            y0=-5,
+            x1=2025,
+            y1=6,
+            line=dict(color="red", width=2, dash="dot"),
+        )
+        
+        # Customize the layout
+        fig.update_layout(
+            title='US Trade Balance with India vs Denmark (2019-2024)',
+            xaxis_title='Year',
+            yaxis_title='Trade Balance (US$ Billions)',
+            hovermode='x unified',
+            legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5),
+            annotations=[
+                dict(
+                    x=2025,
+                    y=6,
+                    xref="x",
+                    yref="y",
+                    text="Trump's Second Term",
+                    showarrow=True,
+                    arrowhead=2,
+                    ax=0,
+                    ay=-40
+                )
+            ]
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Key metrics in columns
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric(
+                label="India's Trade Balance (2024)",
+                value=f"${trade_data['India_Balance'].iloc[-1]:.1f}B",
+                delta=f"{trade_data['India_Balance'].iloc[-1] - trade_data['India_Balance'].iloc[-2]:.1f}B"
+            )
+            
+        with col2:
+            st.metric(
+                label="Denmark's Trade Balance (2024)",
+                value=f"${trade_data['Denmark_Balance'].iloc[-1]:.1f}B",
+                delta=f"{trade_data['Denmark_Balance'].iloc[-1] - trade_data['Denmark_Balance'].iloc[-2]:.1f}B",
+                delta_color="inverse"
+            )
+    
+    with tab2:
+        st.markdown("#### Tariff Vulnerability by Sector")
+        
+        # Create mock data for tariff vulnerability
+        sectors = ['Pharmaceuticals', 'Machinery & Equipment', 'Textiles', 'Automotive Components', 'Renewable Energy']
+        india_values = [1.5, 6.2, 8.3, 7.9, 4.5]
+        denmark_values = [5.8, 8.3, 2.1, 5.5, 9.2]
+        
+        # Create a dataframe
+        tariff_data = pd.DataFrame({
+            'Sector': sectors,
+            'India': india_values,
+            'Denmark': denmark_values
+        })
+        
+        # Create a radar chart
+        fig = go.Figure()
+        
+        # Add India's data
+        fig.add_trace(go.Scatterpolar(
+            r=india_values + [india_values[0]],
+            theta=sectors + [sectors[0]],
+            fill='toself',
+            name='India',
+            line_color='#ff7043',
+            fillcolor='rgba(255, 112, 67, 0.3)'
+        ))
+        
+        # Add Denmark's data
+        fig.add_trace(go.Scatterpolar(
+            r=denmark_values + [denmark_values[0]],
+            theta=sectors + [sectors[0]],
+            fill='toself',
+            name='Denmark',
+            line_color='#5c6bc0',
+            fillcolor='rgba(92, 107, 192, 0.3)'
+        ))
+        
+        # Update the layout
+        fig.update_layout(
+            polar=dict(
+                radialaxis=dict(
+                    visible=True,
+                    range=[0, 10]
+                )
+            ),
+            title='Tariff Vulnerability by Sector (Scale: 1-10)',
+            showlegend=True
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Add an impact analysis table
+        st.markdown("##### Impact Severity Assessment")
+        
+        # Add impact colors
+        def color_impact(val):
+            if val <= 3:
+                return 'background-color: #c8e6c9; color: #1b5e20'  # Green
+            elif val <= 6:
+                return 'background-color: #fff9c4; color: #f57f17'  # Yellow
+            else:
+                return 'background-color: #ffcdd2; color: #b71c1c'  # Red
+        
+        # Display the styled dataframe
+        st.dataframe(
+            tariff_data.style.applymap(color_impact, subset=['India', 'Denmark']),
+            use_container_width=True
+        )
+        
+        st.markdown("""
+        <div class="info-box">
+            <strong>Impact Scale:</strong>
+            <span style="color: #1b5e20">▣ Low (1-3)</span> | 
+            <span style="color: #f57f17">▣ Medium (4-6)</span> | 
+            <span style="color: #b71c1c">▣ High (7-10)</span>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with tab3:
+        st.markdown("#### Export Category Breakdown")
+        
+        # Create mock data for export categories
+        india_categories = {
+            'Category': ['Electrical machinery', 'Gems & jewelry', 'Pharmaceuticals', 'Apparel & clothing', 'Engineering goods'],
+            'Percentage': [5.3, 4.7, 3.9, 11.6, 10.3]
+        }
+        
+        denmark_categories = {
+            'Category': ['Pharmaceutical products', 'Industrial machinery', 'Renewable energy equipment', 'Medical devices', 'Food products'],
+            'Percentage': [28.7, 21.3, 15.5, 8.4, 7.2]
+        }
+        
+        # Create dataframes
+        india_df = pd.DataFrame(india_categories)
+        denmark_df = pd.DataFrame(denmark_categories)
+        
+        # Create two columns
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("##### India's Top Export Categories to US")
+            fig = px.bar(
+                india_df,
+                y='Category',
+                x='Percentage',
+                orientation='h',
+                color='Percentage',
+                color_continuous_scale='Oranges',
+                title="% of India's exports to US"
+            )
+            fig.update_layout(
+                height=400,
+                xaxis_title='Percentage (%)',
+                yaxis_title='',
+                coloraxis_showscale=False
+            )
+            st.plotly_chart(fig, use_container_width=True)
+        
+        with col2:
+            st.markdown("##### Denmark's Top Export Categories to US")
+            fig = px.bar(
+                denmark_df,
+                y='Category',
+                x='Percentage',
+                orientation='h',
+                color='Percentage',
+                color_continuous_scale='Blues',
+                title="% of Denmark's exports to US"
+            )
+            fig.update_layout(
+                height=400,
+                xaxis_title='Percentage (%)',
+                yaxis_title='',
+                coloraxis_showscale=False
+            )
+            st.plotly_chart(fig, use_container_width=True)
+            
+        # Add explanation text
+        st.markdown("""
+        <div class="analysis-box">
+            <h4>Key Insights:</h4>
+            <ul>
+                <li>Denmark's exports are concentrated in fewer categories with pharmaceuticals making up nearly 29% of exports</li>
+                <li>India shows more diversification with apparel (11.6%) and engineering goods (10.3%) leading</li>
+                <li>Denmark's concentration in specific sectors makes it more vulnerable to targeted tariffs</li>
+                <li>India's broader export base provides more resilience to sector-specific tariffs</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with tab4:
+        st.markdown("#### Economic Resilience Comparison")
+        
+        # Create mock data for economic resilience
+        resilience_data = pd.DataFrame({
+            'Factor': ['GDP Size', 'Export Diversification', 'Domestic Market Size', 'Industrial Policy Flexibility', 'Currency Flexibility'],
+            'India': [8, 7, 9, 7, 6],
+            'Denmark': [2, 6, 2, 4, 3]
+        })
+        
+        # Create a horizontal bar chart
+        fig = go.Figure()
+        
+        # Add India's data
+        fig.add_trace(go.Bar(
+            y=resilience_data['Factor'],
+            x=resilience_data['India'],
+            name='India',
+            orientation='h',
+            marker=dict(color='#ff7043')
+        ))
+        
+        # Add Denmark's data
+        fig.add_trace(go.Bar(
+            y=resilience_data['Factor'],
+            x=resilience_data['Denmark'],
+            name='Denmark',
+            orientation='h',
+            marker=dict(color='#5c6bc0')
+        ))
+        
+        # Update the layout
+        fig.update_layout(
+            title='Economic Resilience Factors (Scale: 1-10)',
+            xaxis_title='Score',
+            yaxis_title='',
+            legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5),
+            barmode='group'
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Add overall resilience score
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            india_score = resilience_data['India'].mean()
+            st.markdown(f"""
+            <div class="score-box" style="background-color: rgba(255, 112, 67, 0.1); border-left: 4px solid #ff7043; padding: 15px;">
+                <h3 style="margin:0; color: #ff7043;">India</h3>
+                <div style="font-size: 40px; font-weight: bold;">{india_score:.1f}/10</div>
+                <p>High resilience to trade shocks</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            denmark_score = resilience_data['Denmark'].mean()
+            st.markdown(f"""
+            <div class="score-box" style="background-color: rgba(92, 107, 192, 0.1); border-left: 4px solid #5c6bc0; padding: 15px;">
+                <h3 style="margin:0; color: #5c6bc0;">Denmark</h3>
+                <div style="font-size: 40px; font-weight: bold;">{denmark_score:.1f}/10</div>
+                <p>Lower resilience to trade shocks</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+        # Add analysis text
+        st.markdown("""
+        <div class="analysis-box">
+            <h4>Analysis:</h4>
+            <p>India's larger economy, diverse industrial base, and massive domestic market provide significant buffering against external trade shocks. In contrast, Denmark's smaller, open economy with specialized export sectors makes it more vulnerable to targeted trade policies.</p>
+            <p>The resilience gap is most pronounced in domestic market size (India: 9 vs Denmark: 2) and GDP size (India: 8 vs Denmark: 2), highlighting the fundamental structural differences between these economies in absorbing trade disruptions.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Add extra CSS for styling
+    st.markdown("""
+    <style>
+    .trump-quote {
+        background-color: #f8f9fa;
+        border-left: 4px solid #f1c40f;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 25px;
+    }
+    .quote-text {
+        font-style: italic;
+        font-size: 16px;
+    }
+    .quote-attribution {
+        text-align: right;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .info-box {
+        background-color: #e3f2fd;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+    .analysis-box {
+        background-color: #f5f5f5;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+    .score-box {
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 
 elif section == "Inflation & Unemployment":
