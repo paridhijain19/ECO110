@@ -133,41 +133,49 @@ def load_data():
                 'Value': value * 1000  # Converting to billions for consistency
             })
             
-        denmark_inflation = [0.352, 0.226, 0.017, 1.058, 0.709, 0.729, 0.333, 1.944, 8.534, 3.353, 1.8]
-        india_inflation = [5.833, 4.908, 4.525, 3.587, 3.414, 4.769, 6.165, 5.506, 6.653, 5.361, 4.374]
-
-        denmark_deflator = [93.936, 94.323, 94.723, 95.766, 96.335, 97.249, 100, 102.771, 112.119, 107.871, 107.224]
-        india_deflator = [118.43, 121.13, 125.052, 130.016, 135.066, 138.315, 144.975, 157.087, 167.687, 169.924, 174.745]
-
+        # Sample data for Denmark Inflation
+        denmark_inflation = [0.352, 0.226, 0.017, 1.058, 0.709, 0.729, 0.333, 1.944, 8.534, 3.353, 1.8]  # Sample values
         for year, value in zip(years, denmark_inflation):
             data.append({
-                'Year': year,
                 'Country': 'Denmark',
-                'Metric': 'Inflation (% change)',
+                'Subject Descriptor': 'Inflation, average consumer prices',
+                'Units': 'Percent change',
+                'Scale': 'Units',
+                'Year': year,
                 'Value': value
             })
-
+            
+        # Sample data for India Inflation
+        india_inflation = [5.833, 4.908, 4.525, 3.587, 3.414, 4.769, 6.165, 5.506, 6.653, 5.361, 4.374]  # Sample values
         for year, value in zip(years, india_inflation):
             data.append({
-                'Year': year,
                 'Country': 'India',
-                'Metric': 'Inflation (% change)',
+                'Subject Descriptor': 'Inflation, average consumer prices',
+                'Units': 'Percent change',
+                'Scale': 'Units',
+                'Year': year,
                 'Value': value
             })
-
+        denmark_deflator = [93.936, 94.323, 94.723, 95.766, 96.335, 97.249, 100, 102.771, 112.119, 107.871, 107.224]
         for year, value in zip(years, denmark_deflator):
             data.append({
-                'Year': year,
                 'Country': 'Denmark',
-                'Metric': 'GDP Deflator (Index)',
+                'Subject Descriptor': 'Gross domestic product, deflator',
+                'Units': 'Index',
+                'Scale': 'Units',
+                'Year': year,
                 'Value': value
             })
-
+        
+        # Adding GDP Deflator data for India
+        india_deflator = [118.43, 121.13, 125.052, 130.016, 135.066, 138.315, 144.975, 157.087, 167.687, 169.924, 174.745]
         for year, value in zip(years, india_deflator):
             data.append({
-                'Year': year,
                 'Country': 'India',
-                'Metric': 'GDP Deflator (Index)',
+                'Subject Descriptor': 'Gross domestic product, deflator',
+                'Units': 'Index',
+                'Scale': 'Units',
+                'Year': year,
                 'Value': value
             })
             
@@ -385,7 +393,8 @@ section = st.sidebar.radio(
         "Trump Effect",
         "Government Finances",
         "Correlation Analysis",
-        "Macroeconomic Events"
+        "Macroeconomic Events", 
+        "References"
     ]
 )
 
@@ -969,6 +978,22 @@ elif section == "Population Comparison":
     st.plotly_chart(urban_fig, use_container_width=True)
     
     st.markdown('<div class="insight-box">The urbanization patterns reveal stark differences between Denmark and India. Denmark is heavily urbanized with 88% of its population living in urban areas, reflecting its status as a developed economy. In contrast, India remains predominantly rural with only about 35% urban population, though this ratio has been steadily increasing due to ongoing urbanization trends.</div>', unsafe_allow_html=True)
+elif section == "References":
+    st.markdown('<div class="sub-header">References</div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <ul>
+        <li><a href="https://www.census.gov/foreign-trade/balance/c5330.html" target="_blank">US Trade Data</a></li>
+        <li><a href="https://www.imf.org/en/Publications/CR/Issues/2023/12/18/India-2023-Article-IV-Consultation-Press-Release-Staff-Report-and-Statement-by-the-542605" target="_blank">IMF India 2023 Article IV Consultation</a></li>
+        <li><a href="https://www.imf.org/en/Publications/CR/Issues/2024/09/12/Denmark-2024-Article-IV-Consultation-Press-Release-Staff-Report-and-Statement-by-the-554777" target="_blank">IMF Denmark 2024 Article IV Consultation</a></li>
+        <li><a href="https://www.investopedia.com/significant-financial-events-8700894" target="_blank">Significant Financial Events – Investopedia</a></li>
+        <li><a href="https://www.imf.org/en/Publications/WEO/weo-database/2024/October" target="_blank">IMF WEO Database – October 2024</a></li>
+        <li><a href="https://www.business-standard.com/topic/statsguru" target="_blank">Trump Effect Data – Business Standard (Statsguru), Department of Commerce</a></li>
+        <li><a href="https://www.forbesindia.com/article/explainers/unemployment-rate-in-india/87441/1" target="_blank">India Unemployment Data – Forbes India</a></li>
+    </ul>
+    """, unsafe_allow_html=True)
+
+
 elif section == "Trump Effect":
     st.markdown('<div class="sub-header">Trump Trade Policies & Global Impact</div>', unsafe_allow_html=True)
     
