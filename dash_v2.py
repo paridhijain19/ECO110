@@ -1448,7 +1448,55 @@ elif section == "Inflation & Unemployment":
         Denmark's strong social safety net may contribute to its more stable unemployment figures.</p>
     </div>
     """, unsafe_allow_html=True)
+# elif section == "Trade & Investment":
+#     st.markdown('<div class="sub-header">Trade & Investment</div>', unsafe_allow_html=True)
+#     st.markdown("Analyze trade and investment patterns for Denmark and India.")
+
+#     # Exports Chart
+#     st.markdown('<div class="section-header">Exports Trends</div>', unsafe_allow_html=True)
+#     fig = create_comparative_line_chart(
+#         df,
+#         'Volume of exports of goods and services',
+#         'Percent change',
+#         'Exports Growth Comparison (2014-2024)',
+#         'Annual Percent Change (%)'
+#     )
+#     st.plotly_chart(fig, use_container_width=True)
+    
+#     # Exports insights using direct markdown
+#     st.markdown("""
+#     <div class="insight-box">
+#         <h4>Exports Insights</h4>
+#         <p>Both countries experienced significant export volatility during the pandemic, with sharp contractions in 2020 followed by rebounds.
+#         India has shown stronger export growth recovery in the post-pandemic period compared to Denmark.
+#         Denmark's export performance reflects its integration with EU markets and global supply chains.
+#         India's export growth pattern aligns with its expanding manufacturing base and services sector.</p>
+#     </div>
+#     """, unsafe_allow_html=True)
+
+#     # Investment Chart
+#     st.markdown('<div class="section-header">Investment Trends</div>', unsafe_allow_html=True)
+#     fig = create_comparative_line_chart(
+#         df,
+#         'Total investment',
+#         'Percent of GDP',
+#         'Investment Trends Comparison (2014-2024)',
+#         'Percent of GDP (%)'
+#     )
+#     st.plotly_chart(fig, use_container_width=True)
+    
+#     # Investment insights using direct markdown
+#     st.markdown("""
+#     <div class="insight-box">
+#         <h4>Investment Insights</h4>
+#         <p>India consistently maintains higher investment as a percentage of GDP compared to Denmark, reflecting its developing economy status.
+#         Denmark's investment levels have remained stable around 20-22% of GDP, typical of mature economies.
+#         India's higher investment ratio (around 30% of GDP) supports its faster economic growth trajectory.
+#         Both countries showed resilience in investment levels despite global economic uncertainties.</p>
+#     </div>
+#     """, unsafe_allow_html=True)
 elif section == "Trade & Investment":
+    
     st.markdown('<div class="sub-header">Trade & Investment</div>', unsafe_allow_html=True)
     st.markdown("Analyze trade and investment patterns for Denmark and India.")
 
@@ -1471,6 +1519,28 @@ elif section == "Trade & Investment":
         India has shown stronger export growth recovery in the post-pandemic period compared to Denmark.
         Denmark's export performance reflects its integration with EU markets and global supply chains.
         India's export growth pattern aligns with its expanding manufacturing base and services sector.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Imports Chart - NEW SECTION
+    st.markdown('<div class="section-header">Imports Trends</div>', unsafe_allow_html=True)
+    fig = create_comparative_line_chart(
+        df,
+        'Volume of imports of goods and services',
+        'Percent change',
+        'Imports Growth Comparison (2014-2024)',
+        'Annual Percent Change (%)'
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # Imports insights
+    st.markdown("""
+    <div class="insight-box">
+        <h4>Imports Insights</h4>
+        <p>India showed higher volatility in import growth compared to Denmark, with a significant drop (-13.7%) during the pandemic followed by a strong rebound (19.4%).
+        Denmark maintained more stable import growth patterns, reflecting its mature economy and resilient supply chains.
+        India's import growth patterns reflect its growing domestic market and industrial needs.
+        Both countries have returned to positive import growth in recent years, indicating economic recovery and normalized trade flows.</p>
     </div>
     """, unsafe_allow_html=True)
 
