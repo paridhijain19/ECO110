@@ -786,38 +786,7 @@ if section == "GDP Analysis":
     </div>
     """, unsafe_allow_html=True)
     
-    # 6. Radar Chart for Comprehensive Comparison
-    years_to_compare = [2014, 2019, 2024]  # Start, middle, end points
-    radar_data = []
-    
-    metrics = ['GDP_growth', 'GDP_current_USD_bn', 'GDP_per_capita_constant']
-    metric_names = ['Growth Rate (%)', 'GDP (USD Billions)', 'GDP Per Capita']
-    
-    for year_idx, year in enumerate(years_to_compare[:2]):  # Only use 2014 and 2019 (avoid 2024 which might be out of range)
-        idx = year - 2014
-        radar_data.append(dict(
-            type='scatterpolar',
-            r=[df['Denmark_GDP_growth'][idx], df['Denmark_GDP_current_USD_bn'][idx]/100, df['Denmark_GDP_per_capita_constant'][idx]/100000],
-            theta=metric_names,
-            fill='toself',
-            name=f'Denmark {year}'
-        ))
-        
-        radar_data.append(dict(
-            type='scatterpolar',
-            r=[df['India_GDP_growth'][idx], df['India_GDP_current_USD_bn'][idx]/100, df['India_GDP_per_capita_constant'][idx]/100000],
-            theta=metric_names,
-            fill='toself',
-            name=f'India {year}'
-        ))
-    
-    layout = dict(
-        polar=dict(radialaxis=dict(visible=True)),
-        title='Comparative Economic Indicators Over Time'
-    )
-    
-    fig6 = go.Figure(data=radar_data, layout=layout)
-    st.plotly_chart(fig6, use_container_width=True)
+
     
     # Comprehensive insights
     st.markdown("""
@@ -1015,10 +984,10 @@ elif section == "Trump Effect":
     st.markdown("""
     <div class="trump-quote">
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Donald_Trump_official_portrait.jpg" style="width:75px; border-radius:50%; float:left; margin-right:15px;">
-        <div class="quote-text">
+        <div class="quote-text" style="font-size: 35px; font-weight: bold; line-height: 1.6;">
             <p><i>"They (global leaders) are dying to make a deal. I said, we are not going to have deficits with your country. We're going to have surpluses or, at worst, going to be breaking even."</i></p>
-            <p class="quote-attribution">- President Donald Trump</p>
         </div>
+        <p class="quote-attribution" style="font-size: 18px;  text-align: right;">- President Donald Trump</p>
         <div style="clear:both;"></div>
     </div>
     """, unsafe_allow_html=True)
