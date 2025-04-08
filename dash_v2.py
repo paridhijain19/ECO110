@@ -996,26 +996,25 @@ elif section == "Trump Effect":
     
     # Tabs for different analysis views
     tab1, tab2, tab3, tab4 = st.tabs(["Trade Balance", "Tariff Vulnerability", "Export Categories", "Economic Resilience"])
-    
     with tab1:
         st.markdown("#### US Trade Balance Comparison")
-        
-        # Create mock data for trade balance
+
+        # Actual trade data from U.S. database (in billions)
         trade_data = pd.DataFrame({
             'Year': [2019, 2020, 2021, 2022, 2023, 2024],
-            'India_Exports': [54.3, 49.2, 57.7, 61.3, 63.2, 59.8],
-            'India_Imports': [50.1, 42.3, 48.8, 55.8, 58.1, 54.7],
-            'Denmark_Exports': [12.6, 11.8, 12.4, 12.9, 13.1, 11.7],
-            'Denmark_Imports': [15.2, 13.7, 14.8, 16.1, 16.9, 17.5]
+            'India_Exports': [34.2228, 27.0817, 39.8174, 46.9482, 40.3749, 41.7527],
+            'India_Imports': [57.8790, 51.2546, 73.3082, 85.5252, 83.6861, 87.4164],
+            'Denmark_Exports': [3.1952, 2.9416, 3.5402, 4.5958, 5.2225, 5.8078],
+            'Denmark_Imports': [11.0070, 11.6261, 12.1097, 12.9662, 11.6150, 10.0404]
         })
-        
+
         # Calculate balances
         trade_data['India_Balance'] = trade_data['India_Exports'] - trade_data['India_Imports']
         trade_data['Denmark_Balance'] = trade_data['Denmark_Exports'] - trade_data['Denmark_Imports']
-        
+
         # Create the plot
         fig = go.Figure()
-        
+
         # Add India's trade balance
         fig.add_trace(go.Scatter(
             x=trade_data['Year'],
@@ -1025,7 +1024,7 @@ elif section == "Trump Effect":
             line=dict(color='#ff7043', width=3),
             marker=dict(size=10)
         ))
-        
+
         # Add Denmark's trade balance
         fig.add_trace(go.Scatter(
             x=trade_data['Year'],
@@ -1035,7 +1034,7 @@ elif section == "Trump Effect":
             line=dict(color='#5c6bc0', width=3),
             marker=dict(size=10)
         ))
-        
+
         # Add a reference line at y=0
         fig.add_shape(
             type="line",
@@ -1045,18 +1044,18 @@ elif section == "Trump Effect":
             y1=0,
             line=dict(color="gray", width=1, dash="dash"),
         )
-        
+
         # Add a vertical line for Trump's second term
         fig.add_shape(
             type="line",
             x0=2025,
-            y0=-5,
+            y0=-10,
             x1=2025,
-            y1=6,
+            y1=10,
             line=dict(color="red", width=2, dash="dot"),
         )
-        
-        # Customize the layout
+
+        # Customize layout
         fig.update_layout(
             title='US Trade Balance with India vs Denmark (2019-2024)',
             xaxis_title='Year',
@@ -1066,7 +1065,7 @@ elif section == "Trump Effect":
             annotations=[
                 dict(
                     x=2025,
-                    y=6,
+                    y=10,
                     xref="x",
                     yref="y",
                     text="Trump's Second Term",
@@ -1077,10 +1076,10 @@ elif section == "Trump Effect":
                 )
             ]
         )
-        
+
         st.plotly_chart(fig, use_container_width=True)
-        
-        # Key metrics in columns
+
+        # Key metrics
         col1, col2 = st.columns(2)
         with col1:
             st.metric(
@@ -1088,7 +1087,7 @@ elif section == "Trump Effect":
                 value=f"${trade_data['India_Balance'].iloc[-1]:.1f}B",
                 delta=f"{trade_data['India_Balance'].iloc[-1] - trade_data['India_Balance'].iloc[-2]:.1f}B"
             )
-            
+
         with col2:
             st.metric(
                 label="Denmark's Trade Balance (2024)",
@@ -1096,6 +1095,7 @@ elif section == "Trump Effect":
                 delta=f"{trade_data['Denmark_Balance'].iloc[-1] - trade_data['Denmark_Balance'].iloc[-2]:.1f}B",
                 delta_color="inverse"
             )
+
     
     with tab2:
         st.markdown("#### Tariff Vulnerability by Sector")
