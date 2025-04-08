@@ -133,49 +133,41 @@ def load_data():
                 'Value': value * 1000  # Converting to billions for consistency
             })
             
-        # Sample data for Denmark Inflation
-        denmark_inflation = [0.352, 0.226, 0.017, 1.058, 0.709, 0.729, 0.333, 1.944, 8.534, 3.353, 1.8]  # Sample values
+        denmark_inflation = [0.352, 0.226, 0.017, 1.058, 0.709, 0.729, 0.333, 1.944, 8.534, 3.353, 1.8]
+        india_inflation = [5.833, 4.908, 4.525, 3.587, 3.414, 4.769, 6.165, 5.506, 6.653, 5.361, 4.374]
+
+        denmark_deflator = [93.936, 94.323, 94.723, 95.766, 96.335, 97.249, 100, 102.771, 112.119, 107.871, 107.224]
+        india_deflator = [118.43, 121.13, 125.052, 130.016, 135.066, 138.315, 144.975, 157.087, 167.687, 169.924, 174.745]
+
         for year, value in zip(years, denmark_inflation):
             data.append({
-                'Country': 'Denmark',
-                'Subject Descriptor': 'Inflation, average consumer prices',
-                'Units': 'Percent change',
-                'Scale': 'Units',
                 'Year': year,
+                'Country': 'Denmark',
+                'Metric': 'Inflation (% change)',
                 'Value': value
             })
-            
-        # Sample data for India Inflation
-        india_inflation = [5.833, 4.908, 4.525, 3.587, 3.414, 4.769, 6.165, 5.506, 6.653, 5.361, 4.374]  # Sample values
+
         for year, value in zip(years, india_inflation):
             data.append({
-                'Country': 'India',
-                'Subject Descriptor': 'Inflation, average consumer prices',
-                'Units': 'Percent change',
-                'Scale': 'Units',
                 'Year': year,
+                'Country': 'India',
+                'Metric': 'Inflation (% change)',
                 'Value': value
             })
-        denmark_deflator = [93.936, 94.323, 94.723, 95.766, 96.335, 97.249, 100, 102.771, 112.119, 107.871, 107.224]
+
         for year, value in zip(years, denmark_deflator):
             data.append({
-                'Country': 'Denmark',
-                'Subject Descriptor': 'Gross domestic product, deflator',
-                'Units': 'Index',
-                'Scale': 'Units',
                 'Year': year,
+                'Country': 'Denmark',
+                'Metric': 'GDP Deflator (Index)',
                 'Value': value
             })
-        
-        # Adding GDP Deflator data for India
-        india_deflator = [118.43, 121.13, 125.052, 130.016, 135.066, 138.315, 144.975, 157.087, 167.687, 169.924, 174.745]
+
         for year, value in zip(years, india_deflator):
             data.append({
-                'Country': 'India',
-                'Subject Descriptor': 'Gross domestic product, deflator',
-                'Units': 'Index',
-                'Scale': 'Units',
                 'Year': year,
+                'Country': 'India',
+                'Metric': 'GDP Deflator (Index)',
                 'Value': value
             })
             
@@ -192,7 +184,7 @@ def load_data():
             })
             
         # Sample data for India Unemployment
-        india_unemployment = [5.6, 5.6, 5.5, 5.4, 5.3, 5.3, 8.0, 7.0, 6.0, 5.5, 5.4]  # Sample values
+        india_unemployment = [5.44, 5.44, 5.42, 5.36, 5.33, 5.27, 8.00, 5.98, 7.33, 8.00, 7.80]
         for year, value in zip(years, india_unemployment):
             data.append({
                 'Country': 'India',
@@ -698,7 +690,7 @@ if section == "GDP Analysis":
         'Denmark_GDP_current_prices_bn': [1980.26, 2030.21, 2101.52, 2189.59, 2243.54, 2303.64, 2326.59, 2567.52, 2844.23, 2804.74, 2842.10],
         'India_GDP_current_prices_bn': [124679.60, 137718.70, 153916.70, 170900.40, 188996.70, 201035.90, 198541.00, 235974.00, 269496.50, 295356.70, 325061.42],
         'Denmark_GDP_current_USD_bn': [352.833, 301.759, 312.182, 331.611, 355.293, 345.402, 355.631, 408.378, 401.946, 407.092, 412.293],
-        'India_GDP_current_USD_bn': [1559.86, 1590.17, 1714.28, 1957.97, 1974.38, 2050.16, 1915.55, 2250.18, 2366.31, 2497.19, 2697.56],
+        'India_GDP_current_USD_bn': [2039.13,2103.59,2294.80,2651.47,2702.93,2835.61,2674.85,3167.27,3353.47,3567.55,3889.13],
         'Denmark_GDP_per_capita_constant': [374624.48, 380301.84, 388733.56, 397719.93, 402840.94, 407986.04, 399569.76, 427787.80, 431911.90, 438269.28, 445353.98],
         'India_GDP_per_capita_constant': [80533.17, 85945.86, 91945.73, 97065.59, 102212.39, 105086.50, 98073.59, 106722.34, 113404.84, 121667.25, 129026.52]
     }
@@ -707,7 +699,7 @@ if section == "GDP Analysis":
     
     # 1. Comparative GDP Growth Chart
     fig1 = px.line(df, x='Year', y=['Denmark_GDP_growth', 'India_GDP_growth'], 
-                  title='GDP Growth Rate Comparison (2014-2024)',
+                  title='GDP Percentage Change at Constant Prices (2014-2024)',
                   labels={'value': 'Annual Percent Change (%)', 'variable': 'Country'})
     fig1.update_layout(legend_title_text='')
     st.plotly_chart(fig1, use_container_width=True)
