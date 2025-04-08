@@ -394,6 +394,7 @@ section = st.sidebar.radio(
         "Government Finances",
         "Correlation Analysis",
         "Macroeconomic Events", 
+        "IMF Analysis",
         "References"
     ]
 )
@@ -1494,6 +1495,67 @@ elif section == "Trade & Investment":
         Both countries showed resilience in investment levels despite global economic uncertainties.</p>
     </div>
     """, unsafe_allow_html=True)
+
+elif section == "IMF Analysis":
+    st.markdown('<div class="sub-header">Comparative IMF Analysis: India vs Denmark</div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="insight-box">
+        <h4>1. Economic Growth</h4>
+        <p><em>India:</em> 7.2% GDP growth in 2022-23; projected 6.3%. Driven by domestic demand and service exports.</p>
+        <p><em>Denmark:</em> 2.5% GDP growth in 2023; projected 1.9% in 2024. Driven by pharmaceutical exports.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="insight-box">
+        <h4>2. Fiscal Policy & Public Debt</h4>
+        <p><em>India:</em> Elevated public debt. IMF urges medium-term fiscal consolidation and improved revenue mobilization.</p>
+        <p><em>Denmark:</em> Fiscal surplus (3.3% of GDP); low debt (29.7% of GDP). Small fiscal easing advised for health, climate, and defense spending.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="insight-box">
+        <h4>3. Inflation & Monetary Policy</h4>
+        <p><em>India:</em> Inflation management is key; RBI maintains a neutral, data-driven policy stance.</p>
+        <p><em>Denmark:</em> Inflation near 2%; expected to stay stable. Wages may cause temporary uptick.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="insight-box">
+        <h4>4. Financial Sector Stability</h4>
+        <p><em>India:</em> Stable banking sector; strong credit growth. IMF warns of rising unsecured personal loans.</p>
+        <p><em>Denmark:</em> Financial system sound, but risks in commercial real estate and high interest rates.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="insight-box">
+        <h4>5. Structural Reforms</h4>
+        <p><em>India:</em> Focus on labor reforms, female participation, education, and agriculture to boost inclusive growth.</p>
+        <p><em>Denmark:</em> Needs reforms in innovation, digitalization, green transition, and aging workforce issues.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="insight-box">
+        <h4>6. External Sector & Trade</h4>
+        <p><em>India:</em> Encouraged to reduce trade restrictions and improve FDI policies.</p>
+        <p><em>Denmark:</em> Strong in pharma and shipping. Advised to support multilateral trade systems.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="insight-box">
+        <h4>7. Long-term Challenges</h4>
+        <p><em>India:</em> High debt, employment generation, and structural inefficiencies.</p>
+        <p><em>Denmark:</em> Aging population, slow productivity, and real estate risks.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+
 
 elif section == "Government Finances":
     st.markdown('<div class="sub-header">Government Finances</div>', unsafe_allow_html=True)
